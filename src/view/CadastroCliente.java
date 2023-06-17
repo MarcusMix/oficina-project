@@ -1,11 +1,16 @@
-package model;
+package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import controller.ClienteController;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CadastroCliente extends JPanel {
 	private JTextField inputNome;
@@ -19,12 +24,27 @@ public class CadastroCliente extends JPanel {
 	private JTextField inputMarca;
 	private JTextField inputAno;
 	private JTextField inputPlaca;
+	private JLabel lblModeloCarro;
+	private JLabel lblNome;
+	private JLabel lblNewLabel;
+	private JLabel lblCpf;
+	private JLabel lblDataNascimento;
+	private JLabel lblTelefone;
+	private JLabel lblEmail;
+	private JLabel lblRua;
+	private JLabel lblBairro;
+	private JLabel lblEstado;
+	private JLabel lblMarca;
+	private JLabel lblAno;
+	private JLabel lblPlaca;
+	private JComboBox comboBoxEstado;
+	private JButton btnNewButton;
 
 	public CadastroCliente() {
 		setLayout(null);
 		setBounds(100, 100, 746, 412);
 		
-		JLabel lblNome = new JLabel("Nome:");
+		lblNome = new JLabel("Nome:");
 		lblNome.setBounds(10, 75, 46, 14);
 		add(lblNome);
 		
@@ -33,12 +53,12 @@ public class CadastroCliente extends JPanel {
 		add(inputNome);
 		inputNome.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Cadastro de Cliente");
+		lblNewLabel = new JLabel("Cadastro de Cliente");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		lblNewLabel.setBounds(238, 22, 239, 28);
 		add(lblNewLabel);
 		
-		JLabel lblCpf = new JLabel("CPF:");
+		lblCpf = new JLabel("CPF:");
 		lblCpf.setBounds(10, 109, 46, 14);
 		add(lblCpf);
 		
@@ -47,7 +67,7 @@ public class CadastroCliente extends JPanel {
 		inputCpf.setBounds(115, 103, 210, 20);
 		add(inputCpf);
 		
-		JLabel lblDataNascimento = new JLabel("Data Nasc:");
+		lblDataNascimento = new JLabel("Data Nasc:");
 		lblDataNascimento.setBounds(10, 141, 55, 14);
 		add(lblDataNascimento);
 		
@@ -56,23 +76,23 @@ public class CadastroCliente extends JPanel {
 		inputDataNasc.setBounds(115, 138, 210, 20);
 		add(inputDataNasc);
 		
-		JLabel lblTelefone = new JLabel("Telefone");
+		lblTelefone = new JLabel("Telefone");
 		lblTelefone.setBounds(10, 176, 55, 14);
 		add(lblTelefone);
 		
-		JLabel lblEmail = new JLabel("E-mail:");
+		lblEmail = new JLabel("E-mail:");
 		lblEmail.setBounds(10, 201, 55, 14);
 		add(lblEmail);
 		
-		JLabel lblRua = new JLabel("Rua:");
+		lblRua = new JLabel("Rua:");
 		lblRua.setBounds(10, 236, 55, 14);
 		add(lblRua);
 		
-		JLabel lblBairro = new JLabel("Bairro:");
+		lblBairro = new JLabel("Bairro:");
 		lblBairro.setBounds(10, 261, 55, 14);
 		add(lblBairro);
 		
-		JLabel lblEstado = new JLabel("Estado:");
+		lblEstado = new JLabel("Estado:");
 		lblEstado.setBounds(10, 295, 55, 14);
 		add(lblEstado);
 		
@@ -96,23 +116,23 @@ public class CadastroCliente extends JPanel {
 		inputBairro.setBounds(115, 258, 210, 20);
 		add(inputBairro);
 		
-		JLabel lblModeloCarro = new JLabel("Modelo Carro:");
+		lblModeloCarro = new JLabel("Modelo Carro:");
 		lblModeloCarro.setBounds(431, 75, 46, 14);
 		add(lblModeloCarro);
 		
-		JLabel lblMarca = new JLabel("Marca:");
+		lblMarca = new JLabel("Marca:");
 		lblMarca.setBounds(431, 109, 46, 14);
 		add(lblMarca);
 		
-		JLabel lblAno = new JLabel("Ano:");
+		lblAno = new JLabel("Ano:");
 		lblAno.setBounds(431, 141, 46, 14);
 		add(lblAno);
 		
-		JLabel lblPlaca = new JLabel("Placa:");
+		lblPlaca = new JLabel("Placa:");
 		lblPlaca.setBounds(431, 176, 46, 14);
 		add(lblPlaca);
 		
-		JComboBox comboBoxEstado = new JComboBox();
+		comboBoxEstado = new JComboBox();
 		comboBoxEstado.setBounds(115, 291, 210, 22);
 		add(comboBoxEstado);
 		
@@ -136,7 +156,13 @@ public class CadastroCliente extends JPanel {
 		inputPlaca.setBounds(483, 173, 210, 20);
 		add(inputPlaca);
 		
-		JButton btnNewButton = new JButton("Cadastrar");
+		btnNewButton = new JButton("Cadastrar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// lógica de chamar o controller
+				ClienteController.cadastrarCliente();
+			}
+		});
 		btnNewButton.setBounds(539, 378, 89, 23);
 		add(btnNewButton);
 

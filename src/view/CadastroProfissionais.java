@@ -2,12 +2,9 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import controller.AutomovelController;
 import controller.ClienteController;
-import model.vo.Automovel;
 import model.vo.Cliente;
 
 import java.awt.Font;
@@ -17,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
-public class CadastroCliente extends JPanel {
+public class CadastroProfissionais extends JPanel {
 	private JTextField inputNome;
 	private JTextField inputCpf;
 	private JTextField inputDataNasc;
@@ -45,7 +42,7 @@ public class CadastroCliente extends JPanel {
 	private JComboBox comboBoxEstado;
 	private JButton btnNewButton;
 
-	public CadastroCliente() {
+	public CadastroProfissionais() {
 		setLayout(null);
 		setBounds(100, 100, 746, 412);
 
@@ -58,9 +55,9 @@ public class CadastroCliente extends JPanel {
 		add(inputNome);
 		inputNome.setColumns(10);
 
-		lblNewLabel = new JLabel("Cadastro de Cliente");
+		lblNewLabel = new JLabel("Cadastro de Profissionais");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 24));
-		lblNewLabel.setBounds(238, 22, 239, 28);
+		lblNewLabel.setBounds(238, 22, 335, 28);
 		add(lblNewLabel);
 
 		lblCpf = new JLabel("CPF:");
@@ -183,22 +180,12 @@ public class CadastroCliente extends JPanel {
 				novoCliente.setTelefone(inputTelefone.getText());
 				novoCliente.setCep(inputCEP.getText());
 				
-				
 				//criar automovel
-				Automovel novoAutomovel = new Automovel();
-				novoAutomovel.setAno(inputAno.getText());
-				novoAutomovel.setMarca(inputMarca.getText());
-				novoAutomovel.setModelo(inputModelo.getText());
-				novoAutomovel.setPlaca(inputPlaca.getText());
-				
 
 				//verificar campos obrigatorios
-				if(ClienteController.verificarCamposObrigatorios(novoCliente) && AutomovelController.verificarCamposObrigatorios(novoAutomovel)) {
+				if(ClienteController.verificarCamposObrigatorios(novoCliente)) {
 					// lógica de chamar o controller
 					ClienteController.cadastrarCliente(novoCliente);
-					AutomovelController.cadastrarAutomovel(novoAutomovel);
-					JOptionPane.showMessageDialog(null, "Marca em branco!", 
-							"Sucess", JOptionPane.DEFAULT_OPTION);
 				}
 			}
 

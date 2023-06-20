@@ -11,16 +11,20 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JMenuItem;
 
 public class Index extends JFrame {
 
 	private JPanel contentPane;
-	private JPanel CadastroCliente;
 	private JMenuBar menuBar;
-	private JMenu menuProfissionais;
 	private JMenu menuOrcamento;
 	private JMenu menuRelatorios;
 	private JMenu menuSobre;
+	
+	private CadastroCliente cadastroPainel;
+	private CadastroProfissionais cadastroPro;
+	private JMenuItem subMenuCliente;
+	private JMenuItem subMenuPro;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -38,7 +42,7 @@ public class Index extends JFrame {
 	public Index() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		
-		setBounds(100, 100, 746, 412);
+//		setBounds(100, 100, 746, 412);
 		setBounds(100, 100, 746, 480);
 		setLocationRelativeTo(null);
 		setTitle("Oficina Mecânica");
@@ -48,20 +52,38 @@ public class Index extends JFrame {
 		setJMenuBar(menuBar);
 
 		
-		CadastroCliente cadastrarCliente = new CadastroCliente();
+//		CadastroCliente cadastrarCliente = new CadastroCliente();
 	
 		
-		JMenu menuCliente = new JMenu("Cliente");
-		menuCliente.addActionListener(new ActionListener() {
+		JMenu menuCadastro = new JMenu("Cadastro");
+//		menuCadastro.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				cadastroPainel = new CadastroCliente();
+//				setContentPane(cadastroPainel);
+//				revalidate();
+//			}
+//		});
+		menuBar.add(menuCadastro);
+		
+		subMenuCliente = new JMenuItem("Cliente");
+		subMenuCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setContentPane(cadastrarCliente);
+				cadastroPainel = new CadastroCliente();
+				setContentPane(cadastroPainel);
 				revalidate();
 			}
 		});
-		menuBar.add(menuCliente);
+		menuCadastro.add(subMenuCliente);
 		
-		menuProfissionais = new JMenu("Profissionais");
-		menuBar.add(menuProfissionais);
+		subMenuPro = new JMenuItem("Profissionais");
+		subMenuPro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cadastroPro = new CadastroProfissionais();
+				setContentPane(cadastroPro);
+				revalidate();
+			}
+		});
+		menuCadastro.add(subMenuPro);
 		
 		menuOrcamento = new JMenu("Orçamento");
 		menuBar.add(menuOrcamento);
@@ -75,7 +97,7 @@ public class Index extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
-		setContentPane(cadastrarCliente);
+		setContentPane(contentPane);
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 	}
 }

@@ -2,9 +2,12 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import controller.AutomovelController;
 import controller.ClienteController;
+import model.vo.Automovel;
 import model.vo.Cliente;
 
 import java.awt.Font;
@@ -181,11 +184,20 @@ public class CadastroCliente extends JPanel {
 				novoCliente.setCep(inputCEP.getText());
 				
 				//criar automovel
+				Automovel novoAutomovel = new Automovel();
+				novoAutomovel.setAno(inputAno.getText());
+				novoAutomovel.setMarca(inputMarca.getText());
+				novoAutomovel.setModelo(inputModelo.getText());
+				novoAutomovel.setPlaca(inputPlaca.getText());
+				
 
 				//verificar campos obrigatorios
-				if(ClienteController.verificarCamposObrigatorios(novoCliente)) {
+				if(ClienteController.verificarCamposObrigatorios(novoCliente) && AutomovelController.verificarCamposObrigatorios(novoAutomovel)) {
 					// lógica de chamar o controller
 					ClienteController.cadastrarCliente(novoCliente);
+					AutomovelController.cadastrarAutomovel(novoAutomovel);
+					JOptionPane.showMessageDialog(null, "Marca em branco!", 
+							"Sucess", JOptionPane.DEFAULT_OPTION);
 				}
 			}
 

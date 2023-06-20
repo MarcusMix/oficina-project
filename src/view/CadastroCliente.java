@@ -183,6 +183,7 @@ public class CadastroCliente extends JPanel {
 				novoCliente.setTelefone(inputTelefone.getText());
 				novoCliente.setCep(inputCEP.getText());
 				
+				
 				//criar automovel
 				Automovel novoAutomovel = new Automovel();
 				novoAutomovel.setAno(inputAno.getText());

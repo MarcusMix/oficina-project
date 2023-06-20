@@ -2,6 +2,8 @@ package controller;
 
 import javax.swing.JOptionPane;
 
+import model.dao.ClienteDAO;
+import model.vo.Automovel;
 import model.vo.Cliente;
 
 public class ClienteController {
@@ -49,7 +51,7 @@ public class ClienteController {
 	}
 
 	public static void cadastrarCliente(Cliente novoCliente) {
-		
+		ClienteDAO.cadastrarClienteDAO(novoCliente);
 		
 	}
 

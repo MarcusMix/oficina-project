@@ -7,8 +7,10 @@ import javax.swing.JTextField;
 
 import controller.AutomovelController;
 import controller.ClienteController;
+import controller.PessoaController;
 import model.vo.Automovel;
 import model.vo.Cliente;
+import model.vo.Pessoa;
 
 import java.awt.Font;
 import javax.swing.JComboBox;
@@ -37,13 +39,14 @@ public class CadastroCliente extends JPanel {
 	private JLabel lblTelefone;
 	private JLabel lblEmail;
 	private JLabel lblRua;
-	private JLabel lblCEP;
+	private JLabel lblBairro;
 	private JLabel lblEstado;
 	private JLabel lblMarca;
 	private JLabel lblAno;
 	private JLabel lblPlaca;
 	private JComboBox comboBoxEstado;
 	private JButton btnNewButton;
+	private JTextField inputBairro;
 
 	public CadastroCliente() {
 		setLayout(null);
@@ -93,9 +96,9 @@ public class CadastroCliente extends JPanel {
 		lblRua.setBounds(29, 233, 55, 14);
 		add(lblRua);
 
-		lblCEP = new JLabel("Bairro:");
-		lblCEP.setBounds(29, 296, 55, 14);
-		add(lblCEP);
+		lblBairro = new JLabel("Bairro:");
+		lblBairro.setBounds(29, 299, 55, 14);
+		add(lblBairro);
 
 		lblEstado = new JLabel("Estado:");
 		lblEstado.setBounds(29, 265, 55, 14);
@@ -118,7 +121,7 @@ public class CadastroCliente extends JPanel {
 
 		inputCEP = new JTextField();
 		inputCEP.setColumns(10);
-		inputCEP.setBounds(115, 296, 210, 20);
+		inputCEP.setBounds(115, 330, 210, 20);
 		add(inputCEP);
 
 		lblModeloCarro = new JLabel("Modelo Carro:");
@@ -171,33 +174,42 @@ public class CadastroCliente extends JPanel {
 		btnNewButton = new JButton("Cadastrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//criar pessoa com os dados dgitados
+				Pessoa novaPessoa = new Pessoa();
+				novaPessoa.setNome(inputNome.getText().trim());
+				novaPessoa.setCpf(inputCpf.getText());
+				novaPessoa.setDtNascimento(inputDataNasc.getText());
+				novaPessoa.setTelefone(inputTelefone.getText());
+				novaPessoa.setEmail(inputEmail.getText());
+
 				//criar cliente com os dados digitados
 				Cliente novoCliente = new Cliente();
-				novoCliente.setNome(inputNome.getText());
-				novoCliente.setCpf(inputCpf.getText());
-				novoCliente.setDataNascimento(inputDataNasc.getText());
-				novoCliente.setBairro(inputCEP.getText());
-				novoCliente.setEmail(inputEmail.getText());
 				novoCliente.setRua(inputRua.getText());
 				novoCliente.setEstado((String) comboBoxEstado.getSelectedItem());
-				novoCliente.setTelefone(inputTelefone.getText());
+				novoCliente.setBairro(inputCEP.getText());
 				novoCliente.setCep(inputCEP.getText());
 				
 				
 				//criar automovel
 				Automovel novoAutomovel = new Automovel();
-				novoAutomovel.setAno(inputAno.getText());
-				novoAutomovel.setMarca(inputMarca.getText());
 				novoAutomovel.setModelo(inputModelo.getText());
+				novoAutomovel.setMarca(inputMarca.getText());
+				novoAutomovel.setAno(inputAno.getText());
 				novoAutomovel.setPlaca(inputPlaca.getText());
 				
-
+				PessoaController pessoaController = new PessoaController();
+				ClienteController clienteController = new ClienteController();
+				AutomovelController automovelController = new AutomovelController();
 				//verificar campos obrigatorios
-				if(ClienteController.verificarCamposObrigatorios(novoCliente) && AutomovelController.verificarCamposObrigatorios(novoAutomovel)) {
+				if(clienteController.verificarCamposObrigatorios(novoCliente) 
+						&& automovelController.verificarCamposObrigatorios(novoAutomovel) 
+						&& pessoaController.verificarCamposObrigatorios(novaPessoa)) {
+			
 					// lógica de chamar o controller
-					ClienteController.cadastrarCliente(novoCliente);
-					AutomovelController.cadastrarAutomovel(novoAutomovel);
-					JOptionPane.showMessageDialog(null, "Marca em branco!", 
+					pessoaController.cadastrarPessoa(novaPessoa);
+					clienteController.cadastrarCliente(novoCliente);
+					automovelController.cadastrarAutomovel(novoAutomovel);
+					JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!", 
 							"Sucess", JOptionPane.DEFAULT_OPTION);
 				}
 			}
@@ -207,6 +219,15 @@ public class CadastroCliente extends JPanel {
 		});
 		btnNewButton.setBounds(539, 378, 89, 23);
 		add(btnNewButton);
+		
+		JLabel lblCEP = new JLabel("CEP:");
+		lblCEP.setBounds(29, 333, 46, 14);
+		add(lblCEP);
+		
+		inputBairro = new JTextField();
+		inputBairro.setBounds(115, 296, 210, 20);
+		add(inputBairro);
+		inputBairro.setColumns(10);
 
 	}
 }

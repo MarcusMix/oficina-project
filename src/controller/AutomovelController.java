@@ -7,7 +7,7 @@ import model.vo.Automovel;
 
 public class AutomovelController {
 
-	public static boolean verificarCamposObrigatorios(Automovel novoAutomovel) {
+	public boolean verificarCamposObrigatorios(Automovel novoAutomovel) {
 		
 		if(novoAutomovel.getAno().isBlank()) {
 			JOptionPane.showMessageDialog(null, "Ano em branco!", 
@@ -29,7 +29,7 @@ public class AutomovelController {
 		return true;
 	}
 
-	public static void cadastrarAutomovel(Automovel novoAutomovel) {
+	public void cadastrarAutomovel(Automovel novoAutomovel) {
 		AutomovelDAO.cadastrarAutomovelDAO(novoAutomovel);
 		
 	}

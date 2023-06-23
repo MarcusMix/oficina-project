@@ -16,11 +16,7 @@
     </plugins>
   </build>
   <dependencies>
-	  <dependency>
-        <groupId>com.gtbr</groupId>
-        <artifactId>via-cep</artifactId>
-        <version>1.0.0</version>
-    </dependency>
+	
     <dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>

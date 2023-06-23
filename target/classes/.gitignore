@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-/META-INF/
-=======
-/view/
->>>>>>> a224cae9b3ca80dda8d81aa552a5f6c49499acf4
-/controller/
 /model/
+/view/
+/controller/

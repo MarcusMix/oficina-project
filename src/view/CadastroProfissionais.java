@@ -172,7 +172,7 @@ public class CadastroProfissionais extends JPanel {
 				Cliente novoCliente = new Cliente();
 				novoCliente.setNome(inputNome.getText());
 				novoCliente.setCpf(inputCpf.getText());
-				novoCliente.setDataNascimento(inputDataNasc.getText());
+				novoCliente.setDtNascimento(inputDataNasc.getText());
 				novoCliente.setBairro(inputCEP.getText());
 				novoCliente.setEmail(inputEmail.getText());
 				novoCliente.setRua(inputRua.getText());
@@ -181,12 +181,12 @@ public class CadastroProfissionais extends JPanel {
 				novoCliente.setCep(inputCEP.getText());
 				
 				//criar automovel
-
-				//verificar campos obrigatorios
-				if(ClienteController.verificarCamposObrigatorios(novoCliente)) {
-					// lógica de chamar o controller
-					ClienteController.cadastrarCliente(novoCliente);
-				}
+//
+//				//verificar campos obrigatorios
+//				if(ClienteController.verificarCamposObrigatorios(novoCliente)) {
+//					// lógica de chamar o controller
+//					ClienteController.cadastrarCliente(novoCliente);
+//				}
 			}
 
 

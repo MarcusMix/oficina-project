@@ -10,7 +10,7 @@ import java.sql.Statement;
 public class Banco {
 
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver"; //MYSQL versão 8
-	private static final String BANCODADOS = "dbfoodtrucknot";
+	private static final String BANCODADOS = "oficina_desktop";
 	private static final String CONEXAO = "jdbc:mysql://localhost:3306/" + BANCODADOS +
 			"?useTimezone=true&serverTimezone=UTC";
 	private static final String USER = "root";

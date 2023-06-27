@@ -14,7 +14,12 @@ public class ClienteController {
 			JOptionPane.showMessageDialog(null, "Rua em branco!", 
 					"Erro", JOptionPane.ERROR_MESSAGE);
 			return false;
-		} else if(novoCliente.getEstado().isBlank()) {
+//		} else if(novoCliente.getRua() ) {
+//			JOptionPane.showMessageDialog(null, "Estado em branco!", 
+//					"Erro", JOptionPane.ERROR_MESSAGE);
+//			return false;
+		}
+		else if(novoCliente.getEstado().isBlank()) {
 			JOptionPane.showMessageDialog(null, "Estado em branco!", 
 					"Erro", JOptionPane.ERROR_MESSAGE);
 			return false;

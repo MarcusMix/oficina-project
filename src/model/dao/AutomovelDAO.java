@@ -9,7 +9,7 @@ import model.vo.Automovel;
 
 public class AutomovelDAO {
 
-	public static void cadastrarAutomovelDAO(Automovel novoAutomovel) {
+	public void cadastrarAutomovelDAO(Automovel novoAutomovel) {
 		String query = "INSERT INTO carro (modelo, ano, marca, placa) VALUES (?, ?, ? ,?)";
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);

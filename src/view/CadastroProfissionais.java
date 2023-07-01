@@ -4,6 +4,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
+
+import com.github.lgooddatepicker.components.DatePicker;
 
 import controller.ClienteController;
 import controller.PessoaController;
@@ -14,15 +17,17 @@ import model.vo.Profissional;
 
 import java.awt.Font;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
 public class CadastroProfissionais extends JPanel {
 	private JTextField inputNome;
 	private JTextField inputCpf;
-	private JTextField inputDataNasc;
+	private DatePicker inputDataNasc;
 	private JTextField inputTelefone;
 	private JTextField inputEmail;
 	private JTextField inputRua;
@@ -37,21 +42,33 @@ public class CadastroProfissionais extends JPanel {
 	private JLabel lblBairro;
 	private JLabel lblEstado;
 	private JComboBox comboBoxEstado;
-	private JButton btnNewButton;
+	private JButton btnCadastrar;
 	private JTextField inputCep;
 	private Pessoa novaPessoa;
 	private Profissional novoProfissional;
+	private ProfissionalController profissionalController;
+	private PessoaController pessoaController;
+	private JLabel lblCep;
+	private JLabel lblFuncao;
 
 	public CadastroProfissionais() {
 		setLayout(null);
 		setBounds(100, 100, 746, 412);
+		
+		try {
+			inputCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+			inputTelefone = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
+			inputCep = new JFormattedTextField(new MaskFormatter("#####-###"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		lblNome = new JLabel("Nome:");
 		lblNome.setBounds(29, 72, 46, 14);
 		add(lblNome);
 
 		inputNome = new JTextField();
-		inputNome.setBounds(115, 72, 210, 20);
+		inputNome.setBounds(147, 69, 210, 20);
 		add(inputNome);
 		inputNome.setColumns(10);
 
@@ -64,18 +81,18 @@ public class CadastroProfissionais extends JPanel {
 		lblCpf.setBounds(29, 106, 46, 14);
 		add(lblCpf);
 
-		inputCpf = new JTextField();
+		
 		inputCpf.setColumns(10);
-		inputCpf.setBounds(115, 103, 210, 20);
+		inputCpf.setBounds(147, 103, 210, 20);
 		add(inputCpf);
 
-		lblDataNascimento = new JLabel("Data Nasc:");
-		lblDataNascimento.setBounds(29, 138, 55, 14);
+		lblDataNascimento = new JLabel("Data Nascimento:");
+		lblDataNascimento.setBounds(29, 138, 105, 14);
 		add(lblDataNascimento);
 
-		inputDataNasc = new JTextField();
-		inputDataNasc.setColumns(10);
-		inputDataNasc.setBounds(115, 138, 210, 20);
+		inputDataNasc = new DatePicker();
+		inputDataNasc.getComponentDateTextField().setLocation(162, 0);
+		inputDataNasc.setBounds(147, 138, 210, 20);
 		add(inputDataNasc);
 
 		lblTelefone = new JLabel("Telefone");
@@ -83,39 +100,38 @@ public class CadastroProfissionais extends JPanel {
 		add(lblTelefone);
 
 		lblEmail = new JLabel("E-mail:");
-		lblEmail.setBounds(29, 198, 55, 14);
+		lblEmail.setBounds(29, 206, 55, 14);
 		add(lblEmail);
 
 		lblRua = new JLabel("Rua:");
-		lblRua.setBounds(397, 72, 55, 14);
+		lblRua.setBounds(401, 73, 55, 14);
 		add(lblRua);
 
 		lblBairro = new JLabel("Bairro:");
-		lblBairro.setBounds(397, 138, 40, 14);
+		lblBairro.setBounds(401, 142, 40, 14);
 		add(lblBairro);
 
 		lblEstado = new JLabel("Estado:");
-		lblEstado.setBounds(397, 109, 55, 14);
+		lblEstado.setBounds(401, 106, 55, 14);
 		add(lblEstado);
 
-		inputTelefone = new JTextField();
 		inputTelefone.setColumns(10);
-		inputTelefone.setBounds(115, 173, 210, 20);
+		inputTelefone.setBounds(147, 170, 210, 20);
 		add(inputTelefone);
 
 		inputEmail = new JTextField();
 		inputEmail.setColumns(10);
-		inputEmail.setBounds(115, 198, 210, 20);
+		inputEmail.setBounds(147, 203, 210, 20);
 		add(inputEmail);
 
 		inputRua = new JTextField();
 		inputRua.setColumns(10);
-		inputRua.setBounds(447, 72, 210, 20);
+		inputRua.setBounds(494, 69, 210, 20);
 		add(inputRua);
 
 		inputBairro = new JTextField();
 		inputBairro.setColumns(10);
-		inputBairro.setBounds(447, 135, 210, 20);
+		inputBairro.setBounds(494, 138, 210, 20);
 		add(inputBairro);
 
 		String[] estados = {
@@ -126,40 +142,36 @@ public class CadastroProfissionais extends JPanel {
 		};
 
 		comboBoxEstado = new JComboBox(estados);
-		comboBoxEstado.setBounds(447, 106, 210, 22);
+		comboBoxEstado.setBounds(494, 102, 210, 22);
 		add(comboBoxEstado);
 		
 		
-		JLabel lblCep = new JLabel("CEP:");
-		lblCep.setBounds(397, 173, 40, 14);
+		lblCep = new JLabel("CEP:");
+		lblCep.setBounds(401, 174, 40, 14);
 		add(lblCep);
 		
-		inputCep = new JTextField();
 		inputCep.setColumns(10);
-		inputCep.setBounds(447, 170, 210, 20);
+		inputCep.setBounds(494, 170, 210, 20);
 		add(inputCep);
 		
-		JLabel lblFuncao = new JLabel("Função:");
-		lblFuncao.setBounds(382, 201, 55, 14);
+		lblFuncao = new JLabel("Função:");
+		lblFuncao.setBounds(401, 206, 55, 14);
 		add(lblFuncao);
 		
 		String[] funcao = {"Mecânico", "Funileiro", "Eletricista"};
 		JComboBox cbFuncao = new JComboBox(funcao);
-		cbFuncao.setBounds(447, 201, 210, 22);
+		cbFuncao.setBounds(494, 202, 210, 22);
 		add(cbFuncao);
 		
-		btnNewButton = new JButton("Cadastrar");
-		btnNewButton.addActionListener(new ActionListener() {
-
-			private ProfissionalController profissionalController;
-			private PessoaController pessoaController;
+		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				//criar profissional
 				novoProfissional = new Profissional();
 				novoProfissional.setNome(inputNome.getText().trim());
 				novoProfissional.setCpf(inputCpf.getText());
-				novoProfissional.setDtNascimento(inputDataNasc.getText());
+				novoProfissional.setDtNascimento(inputDataNasc.getDateStringOrEmptyString().toString());
 				novoProfissional.setTelefone(inputTelefone.getText());
 				novoProfissional.setEmail(inputEmail.getText());
 				novoProfissional.setFuncao((String) cbFuncao.getSelectedItem());
@@ -171,14 +183,14 @@ public class CadastroProfissionais extends JPanel {
 				mensagemValidacao += profissionalController.validarDadosProfissional(novoProfissional);
 				
 				if(mensagemValidacao.isBlank()) {
-					//TODO chamar o salvar/cadastrar/inserir
+					profissionalController.cadastrarProfissional(novoProfissional);
 				}else {
 					JOptionPane.showMessageDialog(null, mensagemValidacao, "Atenção", JOptionPane.WARNING_MESSAGE, null);
 				}
 			}
 		});
-		btnNewButton.setBounds(539, 378, 100, 23);
-		add(btnNewButton);
+		btnCadastrar.setBounds(539, 378, 100, 23);
+		add(btnCadastrar);
 	
 	}
 }

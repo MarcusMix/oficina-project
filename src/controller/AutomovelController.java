@@ -7,31 +7,26 @@ import model.vo.Automovel;
 
 public class AutomovelController {
 
-	public boolean verificarCamposObrigatorios(Automovel novoAutomovel) {
-		
+	public String verificarCamposObrigatorios(Automovel novoAutomovel) {
+		String mensagemValidacao = "";
 		if(novoAutomovel.getAno().isBlank()) {
-			JOptionPane.showMessageDialog(null, "Ano em branco!", 
-					"Erro", JOptionPane.ERROR_MESSAGE);
-			return false;
-		} else if(novoAutomovel.getMarca().isBlank()) {
-			JOptionPane.showMessageDialog(null, "Marca em branco!", 
-					"Erro", JOptionPane.ERROR_MESSAGE);
-			return false;
-		} else if (novoAutomovel.getModelo().isBlank()) {
-			JOptionPane.showMessageDialog(null, "Modelo em branco!", 
-					"Erro", JOptionPane.ERROR_MESSAGE);
-			return false;
-		} else if (novoAutomovel.getPlaca().isBlank()) {
-			JOptionPane.showMessageDialog(null, "Placa em branco!", 
-					"Erro", JOptionPane.ERROR_MESSAGE);
-			return false;
+			mensagemValidacao = "Ano em branco! \n";
+		} 
+		if(novoAutomovel.getMarca().isBlank()) {
+			mensagemValidacao = "Marca em branco! \n";
+		} 
+		if (novoAutomovel.getModelo().isBlank()) {
+			mensagemValidacao = "Modelo em branco! \n";
+		} 
+		if (novoAutomovel.getPlaca().isBlank()) {
+			mensagemValidacao = "Placa em branco! \n";
 		}
-		return true;
+		return mensagemValidacao;
 	}
 
 	public void cadastrarAutomovel(Automovel novoAutomovel) {
-		AutomovelDAO.cadastrarAutomovelDAO(novoAutomovel);
-		
+		AutomovelDAO autoDAO = new AutomovelDAO();
+		autoDAO.cadastrarAutomovelDAO(novoAutomovel);
 	}
 
 }

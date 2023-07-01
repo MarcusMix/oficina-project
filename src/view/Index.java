@@ -12,6 +12,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuItem;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class Index extends JFrame {
 
@@ -25,6 +28,8 @@ public class Index extends JFrame {
 	private CadastroProfissionais cadastroPro;
 	private JMenuItem subMenuCliente;
 	private JMenuItem subMenuPro;
+	private JMenu menuCadastro;
+	private JLabel lblTitulo;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -41,8 +46,6 @@ public class Index extends JFrame {
 
 	public Index() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		
-//		setBounds(100, 100, 746, 412);
 		setBounds(100, 100, 746, 480);
 		setLocationRelativeTo(null);
 		setTitle("Oficina Mecânica");
@@ -51,18 +54,8 @@ public class Index extends JFrame {
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		
-//		CadastroCliente cadastrarCliente = new CadastroCliente();
-	
-		
-		JMenu menuCadastro = new JMenu("Cadastro");
-//		menuCadastro.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				cadastroPainel = new CadastroCliente();
-//				setContentPane(cadastroPainel);
-//				revalidate();
-//			}
-//		});
+		menuCadastro = new JMenu("Cadastro");
+
 		menuBar.add(menuCadastro);
 		
 		subMenuCliente = new JMenuItem("Cliente");
@@ -98,6 +91,16 @@ public class Index extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		setContentPane(contentPane);
-		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		contentPane.setLayout(null);
+		
+		lblTitulo = new JLabel("Oficina Mecânica");
+		lblTitulo.setBounds(182, 10, 365, 60);
+		lblTitulo.setFont(new Font("Poppins Black", Font.PLAIN, 40));
+		contentPane.add(lblTitulo);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(Index.class.getResource("/icons/golf.jpg")));
+		lblNewLabel.setBounds(-158, -89, 890, 512);
+		contentPane.add(lblNewLabel);
 	}
 }

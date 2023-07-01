@@ -9,7 +9,7 @@ public class PessoaController {
 
 	public void cadastrarPessoa(Pessoa novaPessoa) {
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		pessoaDAO.cadastrarPessoaDAO(novaPessoa);
+//		pessoaDAO.cadastrarPessoaDAO(novaPessoa);
 	}
 
 	public String verificarCamposObrigatorios(Pessoa novaPessoa) {

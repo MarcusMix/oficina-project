@@ -3,79 +3,76 @@ package controller;
 import javax.swing.JOptionPane;
 
 import model.dao.ClienteDAO;
+import model.dao.PessoaDAO;
 import model.vo.Automovel;
 import model.vo.Cliente;
 
 public class ClienteController {
 	
-	public boolean verificarCamposObrigatorios(Cliente novoCliente) {
-		
+	public String verificarCamposObrigatorios(Cliente novoCliente) {
+		String mensagemValidacao = "";
+		if(novoCliente.getNome().isBlank()) {
+			mensagemValidacao = "Cliente em branco! \n";
+		}
+		if(novoCliente.getCpf().isBlank()) {
+			mensagemValidacao += "CPF em branco! \n"; 
+		} 
+		if(novoCliente.getDtNascimento().isBlank()) {
+			mensagemValidacao += "Data de Nascimento em branco!\n";
+		} 
+		if(novoCliente.getTelefone().isBlank()) {
+			mensagemValidacao += "Telefone em branco!\n";
+		}
+		if(novoCliente.getEmail().isBlank()) {
+			mensagemValidacao += "E-mail em branco!\n";
+		}
+		if(novoCliente.getCpf().length() < 11) {
+			mensagemValidacao += "Campo CPF não pode ter menos que onze caracteres!	\n";
+		}
+		if(novoCliente.getEmail().length() < 10) {
+			mensagemValidacao += "Campo E-mail não pode ter menos que dez caracteres!\n";
+		}
+		if(novoCliente.getNome().length() < 2) {
+			mensagemValidacao += "Campo Nome não pode ter menos que dois caracteres!\n";
+		}
+		if(novoCliente.getTelefone().length() < 11) {
+			mensagemValidacao += "Campo Telefone não pode ter menos que onze caracteres!\n";
+		}
+		if(novoCliente.getDtNascimento().length() < 10) {
+			mensagemValidacao += "Campo Data de Nascimento não pode ter menos que dez caracteres!\n";
+		}
 		if(novoCliente.getRua().isBlank()) {
-			JOptionPane.showMessageDialog(null, "Rua em branco!", 
-					"Erro", JOptionPane.ERROR_MESSAGE);
-			return false;
-//		} else if(novoCliente.getRua() ) {
-//			JOptionPane.showMessageDialog(null, "Estado em branco!", 
-//					"Erro", JOptionPane.ERROR_MESSAGE);
-//			return false;
+			mensagemValidacao += "Rua em branco! \n";
 		}
-		else if(novoCliente.getEstado().isBlank()) {
-			JOptionPane.showMessageDialog(null, "Estado em branco!", 
-					"Erro", JOptionPane.ERROR_MESSAGE);
-			return false;
-		} else if(novoCliente.getBairro().isBlank()) {
-			JOptionPane.showMessageDialog(null, "Bairro em branco!", 
-					"Erro", JOptionPane.ERROR_MESSAGE);
-			return false;
-		} else if(novoCliente.getCep().isBlank()) {
-			JOptionPane.showMessageDialog(null, "CEP em branco!", 
-					"Erro", JOptionPane.ERROR_MESSAGE);
-			return false;
-		}else if(novoCliente.getBairro().length() < 3) {
-			JOptionPane.showMessageDialog(null, "Campo Bairro não pode ter menos que três caracteres!", 
-					"Erro", JOptionPane.ERROR_MESSAGE);
-			return false;
-		}else if(novoCliente.getCep().length() < 9) {
-			JOptionPane.showMessageDialog(null, "Campo Cep não pode ter menos que oito caracteres!", 
-					"Erro", JOptionPane.ERROR_MESSAGE);
-			return false;
-		}
+		if(novoCliente.getEstado().isBlank()) {
+			mensagemValidacao += "Estado em branco! \n";
+		}  
+		if(novoCliente.getBairro().isBlank()) {
+			mensagemValidacao += "Bairro em branco! \n";
+		}  
+		if(novoCliente.getCep().isBlank()) {
+			mensagemValidacao += "CEP em branco! \n";
+		} 
+		if(novoCliente.getBairro().length() < 3) {
+			mensagemValidacao += "Bairro com menos de 3 caracteres! \n";
+		} 
+		if(novoCliente.getCep().length() < 9) {
+			mensagemValidacao += "CEP não pode conter menos que 8 caracteres! \n";
+		} 
+		if(novoCliente.getRua().length() < 4) {
+			mensagemValidacao += "Rua não pode conter menos que 4 caracteres! \n";
+		} 
 		
-//		else if(novoCliente.getCpf().length() < 14) {
-//			JOptionPane.showMessageDialog(null, "Campo CPF não pode ter menos que onze caracteres!", 
-//					"Erro", JOptionPane.ERROR_MESSAGE);
-//			return false;
-//		}else if(novoCliente.getEmail().length() < 10) {
-//			JOptionPane.showMessageDialog(null, "Campo E-mail não pode ter menos que dez caracteres!", 
-//					"Erro", JOptionPane.ERROR_MESSAGE);
-//			return false;
-//		}
-		
-//		else if(novoCliente.getNome().length() < 2) {
-//			JOptionPane.showMessageDialog(null, "Campo Nome não pode ter menos que dois caracteres!", 
-//					"Erro", JOptionPane.ERROR_MESSAGE);
-//			return false;
-//		}else if(novoCliente.getTelefone().length() < 11) {
-//			JOptionPane.showMessageDialog(null, "Campo Telefone não pode ter menos que onze caracteres!", 
-//					"Erro", JOptionPane.ERROR_MESSAGE);
-//			return false;
-//		}else if(novoCliente.getDtNascimento().length() < 11) {
-//			JOptionPane.showMessageDialog(null, "Campo Data de Nascimento não pode ter menos que onze caracteres!", 
-//					"Erro", JOptionPane.ERROR_MESSAGE);
-//			return false;
-		
-		else if(novoCliente.getRua().length() < 4) {
-			JOptionPane.showMessageDialog(null, "Campo Rua não pode ter menos que quatro caracteres!", 
-					"Erro", JOptionPane.ERROR_MESSAGE);
-			return false;
-		} else {
-			return true;
-		}
+		return mensagemValidacao;
 		
 	}
 
 	public void cadastrarCliente(Cliente novoCliente) {
-		ClienteDAO.cadastrarClienteDAO(novoCliente);
+		ClienteDAO clienteDAO = new ClienteDAO();
+		clienteDAO.cadastrarClienteDAO(novoCliente);
+		
+		PessoaDAO pessoaDAO = new PessoaDAO();
+		pessoaDAO.cadastrarPessoaDAO(novoCliente);
 		
 	}
 

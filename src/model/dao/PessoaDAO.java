@@ -5,11 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.vo.Cliente;
 import model.vo.Pessoa;
 
 public class PessoaDAO {
 
-	public void cadastrarPessoaDAO(Pessoa novaPessoa) {
+	public void cadastrarPessoaDAO(Pessoa novoCliente) {
 		String query = "INSERT INTO pessoa (nome, cpf, dt_nascimento, telefone,"
 				+ " email ) VALUES (?, ?, ? ,? ,?)";
 		System.out.println(query);
@@ -17,16 +18,16 @@ public class PessoaDAO {
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
 
 		try {
-			pstmt.setString(1, novaPessoa.getNome());
-			pstmt.setString(2, novaPessoa.getCpf());
-			pstmt.setString(3, novaPessoa.getDtNascimento());
-			pstmt.setString(4, novaPessoa.getTelefone());
-			pstmt.setString(5, novaPessoa.getEmail());
+			pstmt.setString(1, novoCliente.getNome());
+			pstmt.setString(2, novoCliente.getCpf());
+			pstmt.setString(3, novoCliente.getDtNascimento());
+			pstmt.setString(4, novoCliente.getTelefone());
+			pstmt.setString(5, novoCliente.getEmail());
 
 			pstmt.execute();
 			ResultSet resultado = pstmt.getGeneratedKeys(); 
 			if (resultado.next()) {
-				novaPessoa.setIdpessoa(resultado.getInt(1));
+				novoCliente.setIdpessoa(resultado.getInt(1));
 			}
 
 		} catch (SQLException erro){

@@ -10,7 +10,7 @@ import model.vo.Cliente;
 
 public class ClienteDAO {
 
-	public static void cadastrarClienteDAO(Cliente novoCliente) {
+	public void cadastrarClienteDAO(Cliente novoCliente) {
 		String query = "INSERT INTO cliente (rua, bairro, cep, estado) VALUES (?, ?, ? ,?)";
 		System.out.println(query);
 		Connection conn = Banco.getConnection();
@@ -25,6 +25,7 @@ public class ClienteDAO {
 			pstmt.execute();
 			ResultSet resultado = pstmt.getGeneratedKeys(); 
 			if (resultado.next()) {
+				novoCliente.setIdpessoa(resultado.getInt(1));
 				novoCliente.setIdCliente(resultado.getInt(1));
 			}
 			

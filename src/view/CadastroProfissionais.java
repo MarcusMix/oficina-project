@@ -2,10 +2,15 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import controller.ClienteController;
+import controller.PessoaController;
+import controller.ProfissionalController;
 import model.vo.Cliente;
+import model.vo.Pessoa;
+import model.vo.Profissional;
 
 import java.awt.Font;
 import javax.swing.JComboBox;
@@ -21,12 +26,7 @@ public class CadastroProfissionais extends JPanel {
 	private JTextField inputTelefone;
 	private JTextField inputEmail;
 	private JTextField inputRua;
-	private JTextField inputCEP;
-	private JTextField inputModelo;
-	private JTextField inputMarca;
-	private JTextField inputAno;
-	private JTextField inputPlaca;
-	private JLabel lblModeloCarro;
+	private JTextField inputBairro;
 	private JLabel lblNome;
 	private JLabel lblNewLabel;
 	private JLabel lblCpf;
@@ -34,13 +34,13 @@ public class CadastroProfissionais extends JPanel {
 	private JLabel lblTelefone;
 	private JLabel lblEmail;
 	private JLabel lblRua;
-	private JLabel lblCEP;
+	private JLabel lblBairro;
 	private JLabel lblEstado;
-	private JLabel lblMarca;
-	private JLabel lblAno;
-	private JLabel lblPlaca;
 	private JComboBox comboBoxEstado;
 	private JButton btnNewButton;
+	private JTextField inputCep;
+	private Pessoa novaPessoa;
+	private Profissional novoProfissional;
 
 	public CadastroProfissionais() {
 		setLayout(null);
@@ -87,15 +87,15 @@ public class CadastroProfissionais extends JPanel {
 		add(lblEmail);
 
 		lblRua = new JLabel("Rua:");
-		lblRua.setBounds(29, 233, 55, 14);
+		lblRua.setBounds(397, 72, 55, 14);
 		add(lblRua);
 
-		lblCEP = new JLabel("Bairro:");
-		lblCEP.setBounds(29, 296, 55, 14);
-		add(lblCEP);
+		lblBairro = new JLabel("Bairro:");
+		lblBairro.setBounds(397, 138, 40, 14);
+		add(lblBairro);
 
 		lblEstado = new JLabel("Estado:");
-		lblEstado.setBounds(29, 265, 55, 14);
+		lblEstado.setBounds(397, 109, 55, 14);
 		add(lblEstado);
 
 		inputTelefone = new JTextField();
@@ -110,29 +110,13 @@ public class CadastroProfissionais extends JPanel {
 
 		inputRua = new JTextField();
 		inputRua.setColumns(10);
-		inputRua.setBounds(115, 233, 210, 20);
+		inputRua.setBounds(447, 72, 210, 20);
 		add(inputRua);
 
-		inputCEP = new JTextField();
-		inputCEP.setColumns(10);
-		inputCEP.setBounds(115, 296, 210, 20);
-		add(inputCEP);
-
-		lblModeloCarro = new JLabel("Modelo Carro:");
-		lblModeloCarro.setBounds(431, 75, 68, 14);
-		add(lblModeloCarro);
-
-		lblMarca = new JLabel("Marca:");
-		lblMarca.setBounds(431, 109, 46, 14);
-		add(lblMarca);
-
-		lblAno = new JLabel("Ano:");
-		lblAno.setBounds(431, 141, 46, 14);
-		add(lblAno);
-
-		lblPlaca = new JLabel("Placa:");
-		lblPlaca.setBounds(431, 176, 46, 14);
-		add(lblPlaca);
+		inputBairro = new JTextField();
+		inputBairro.setColumns(10);
+		inputBairro.setBounds(447, 135, 210, 20);
+		add(inputBairro);
 
 		String[] estados = {
 				"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", 
@@ -142,58 +126,59 @@ public class CadastroProfissionais extends JPanel {
 		};
 
 		comboBoxEstado = new JComboBox(estados);
-		comboBoxEstado.setBounds(115, 264, 210, 22);
+		comboBoxEstado.setBounds(447, 106, 210, 22);
 		add(comboBoxEstado);
-
-		inputModelo = new JTextField();
-		inputModelo.setColumns(10);
-		inputModelo.setBounds(509, 72, 210, 20);
-		add(inputModelo);
-
-		inputMarca = new JTextField();
-		inputMarca.setColumns(10);
-		inputMarca.setBounds(509, 106, 210, 20);
-		add(inputMarca);
-
-		inputAno = new JTextField();
-		inputAno.setColumns(10);
-		inputAno.setBounds(509, 138, 210, 20);
-		add(inputAno);
-
-		inputPlaca = new JTextField();
-		inputPlaca.setColumns(10);
-		inputPlaca.setBounds(509, 173, 210, 20);
-		add(inputPlaca);
-
+		
+		
+		JLabel lblCep = new JLabel("CEP:");
+		lblCep.setBounds(397, 173, 40, 14);
+		add(lblCep);
+		
+		inputCep = new JTextField();
+		inputCep.setColumns(10);
+		inputCep.setBounds(447, 170, 210, 20);
+		add(inputCep);
+		
+		JLabel lblFuncao = new JLabel("Função:");
+		lblFuncao.setBounds(382, 201, 55, 14);
+		add(lblFuncao);
+		
+		String[] funcao = {"Mecânico", "Funileiro", "Eletricista"};
+		JComboBox cbFuncao = new JComboBox(funcao);
+		cbFuncao.setBounds(447, 201, 210, 22);
+		add(cbFuncao);
+		
 		btnNewButton = new JButton("Cadastrar");
 		btnNewButton.addActionListener(new ActionListener() {
+
+			private ProfissionalController profissionalController;
+			private PessoaController pessoaController;
+
 			public void actionPerformed(ActionEvent e) {
-				//criar cliente com os dados digitados
-				Cliente novoCliente = new Cliente();
-				novoCliente.setNome(inputNome.getText());
-				novoCliente.setCpf(inputCpf.getText());
-				novoCliente.setDtNascimento(inputDataNasc.getText());
-				novoCliente.setBairro(inputCEP.getText());
-				novoCliente.setEmail(inputEmail.getText());
-				novoCliente.setRua(inputRua.getText());
-				novoCliente.setEstado((String) comboBoxEstado.getSelectedItem());
-				novoCliente.setTelefone(inputTelefone.getText());
-				novoCliente.setCep(inputCEP.getText());
+				//criar profissional
+				novoProfissional = new Profissional();
+				novoProfissional.setNome(inputNome.getText().trim());
+				novoProfissional.setCpf(inputCpf.getText());
+				novoProfissional.setDtNascimento(inputDataNasc.getText());
+				novoProfissional.setTelefone(inputTelefone.getText());
+				novoProfissional.setEmail(inputEmail.getText());
+				novoProfissional.setFuncao((String) cbFuncao.getSelectedItem());
+
+				pessoaController = new PessoaController();
+				String mensagemValidacao = pessoaController.verificarCamposObrigatorios(novoProfissional);
 				
-				//criar automovel
-//
-//				//verificar campos obrigatorios
-//				if(ClienteController.verificarCamposObrigatorios(novoCliente)) {
-//					// lógica de chamar o controller
-//					ClienteController.cadastrarCliente(novoCliente);
-//				}
+				profissionalController = new ProfissionalController();
+				mensagemValidacao += profissionalController.validarDadosProfissional(novoProfissional);
+				
+				if(mensagemValidacao.isBlank()) {
+					//TODO chamar o salvar/cadastrar/inserir
+				}else {
+					JOptionPane.showMessageDialog(null, mensagemValidacao, "Atenção", JOptionPane.WARNING_MESSAGE, null);
+				}
 			}
-
-
-
 		});
-		btnNewButton.setBounds(539, 378, 89, 23);
+		btnNewButton.setBounds(539, 378, 100, 23);
 		add(btnNewButton);
-
+	
 	}
 }

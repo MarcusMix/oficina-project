@@ -6,6 +6,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
+import com.github.lgooddatepicker.components.DatePicker;
+
 import controller.AutomovelController;
 import controller.ClienteController;
 import controller.PessoaController;
@@ -48,8 +50,10 @@ public class CadastroCliente extends JPanel {
 	private JLabel lblAno;
 	private JLabel lblPlaca;
 	private JComboBox comboBoxEstado;
-	private JButton btnNewButton;
+	private JButton btnCadastro;
 	private JTextField inputBairro;
+	private Pessoa novaPessoa;
+	private DatePicker dtNasc;
 
 	public CadastroCliente() {
 		setLayout(null);
@@ -73,7 +77,7 @@ public class CadastroCliente extends JPanel {
 		add(lblNome);
 
 		inputNome = new JTextField();
-		inputNome.setBounds(115, 72, 210, 20);
+		inputNome.setBounds(142, 69, 210, 20);
 		add(inputNome);
 		inputNome.setColumns(10);
 
@@ -88,17 +92,17 @@ public class CadastroCliente extends JPanel {
 
 
 		inputCpf.setColumns(10);
-		inputCpf.setBounds(115, 103, 210, 20);
+		inputCpf.setBounds(142, 100, 210, 20);
 		add(inputCpf);
 
 		lblDataNascimento = new JLabel("Data Nasc:");
 		lblDataNascimento.setBounds(29, 138, 55, 14);
 		add(lblDataNascimento);
 
-		inputDataNasc = new JTextField();
-		inputDataNasc.setColumns(10);
-		inputDataNasc.setBounds(115, 138, 210, 20);
-		add(inputDataNasc);
+		dtNasc = new DatePicker();
+//		dtNasc.setColumns(10);
+		dtNasc.setBounds(142, 138, 210, 20);
+		add(dtNasc);
 
 		lblTelefone = new JLabel("Telefone");
 		lblTelefone.setBounds(29, 173, 55, 14);
@@ -121,37 +125,37 @@ public class CadastroCliente extends JPanel {
 		add(lblEstado);
 
 		inputTelefone.setColumns(10);
-		inputTelefone.setBounds(115, 173, 210, 20);
+		inputTelefone.setBounds(142, 169, 210, 20);
 		add(inputTelefone);
 
 		inputEmail = new JTextField();
 		inputEmail.setColumns(10);
-		inputEmail.setBounds(115, 198, 210, 20);
+		inputEmail.setBounds(142, 195, 210, 20);
 		add(inputEmail);
 
 		inputRua = new JTextField();
 		inputRua.setColumns(10);
-		inputRua.setBounds(115, 233, 210, 20);
+		inputRua.setBounds(142, 230, 210, 20);
 		add(inputRua);
 
 		inputCEP.setColumns(10);
-		inputCEP.setBounds(115, 330, 210, 20);
+		inputCEP.setBounds(142, 330, 210, 20);
 		add(inputCEP);
 
 		lblModeloCarro = new JLabel("Modelo Carro:");
-		lblModeloCarro.setBounds(431, 75, 68, 14);
+		lblModeloCarro.setBounds(392, 72, 68, 14);
 		add(lblModeloCarro);
 
 		lblMarca = new JLabel("Marca:");
-		lblMarca.setBounds(431, 109, 46, 14);
+		lblMarca.setBounds(392, 106, 46, 14);
 		add(lblMarca);
 
 		lblAno = new JLabel("Ano:");
-		lblAno.setBounds(431, 141, 46, 14);
+		lblAno.setBounds(392, 138, 46, 14);
 		add(lblAno);
 
 		lblPlaca = new JLabel("Placa:");
-		lblPlaca.setBounds(431, 176, 46, 14);
+		lblPlaca.setBounds(392, 173, 46, 14);
 		add(lblPlaca);
 
 		String[] estados = {
@@ -162,7 +166,7 @@ public class CadastroCliente extends JPanel {
 		};
 
 		comboBoxEstado = new JComboBox(estados);
-		comboBoxEstado.setBounds(115, 264, 210, 22);
+		comboBoxEstado.setBounds(142, 261, 210, 22);
 		add(comboBoxEstado);
 
 		inputModelo = new JTextField();
@@ -187,27 +191,26 @@ public class CadastroCliente extends JPanel {
 		
 		
 
-		btnNewButton = new JButton("Cadastrar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//criar pessoa com os dados dgitados
-				Pessoa novaPessoa = new Pessoa();
-				novaPessoa.setNome(inputNome.getText().trim());
-				novaPessoa.setCpf(inputCpf.getText());
-				novaPessoa.setDtNascimento(inputDataNasc.getText());
-				novaPessoa.setTelefone(inputTelefone.getText());
-				novaPessoa.setEmail(inputEmail.getText());
+		btnCadastro = new JButton("Cadastrar");
+		btnCadastro.addActionListener(new ActionListener() {
+			private Cliente novoCliente;
+			private Automovel novoAutomovel;
 
+			public void actionPerformed(ActionEvent e) {
 				//criar cliente com os dados digitados
-				Cliente novoCliente = new Cliente();
+				novoCliente = new Cliente();
+				novoCliente.setNome(inputNome.getText().trim());
+				novoCliente.setCpf(inputCpf.getText());
+				novoCliente.setDtNascimento(inputDataNasc.getText());
+				novoCliente.setTelefone(inputTelefone.getText());
+				novoCliente.setEmail(inputEmail.getText());
 				novoCliente.setRua(inputRua.getText());
 				novoCliente.setEstado((String) comboBoxEstado.getSelectedItem());
 				novoCliente.setBairro(inputCEP.getText());
 				novoCliente.setCep(inputCEP.getText());
 
-
 				//criar automovel
-				Automovel novoAutomovel = new Automovel();
+				novoAutomovel = new Automovel();
 				novoAutomovel.setModelo(inputModelo.getText());
 				novoAutomovel.setMarca(inputMarca.getText());
 				novoAutomovel.setAno(inputAno.getText());
@@ -216,33 +219,38 @@ public class CadastroCliente extends JPanel {
 				PessoaController pessoaController = new PessoaController();
 				ClienteController clienteController = new ClienteController();
 				AutomovelController automovelController = new AutomovelController();
+				
+				
 				//verificar campos obrigatorios
-				if(pessoaController.verificarCamposObrigatorios(novaPessoa)
-						&& clienteController.verificarCamposObrigatorios(novoCliente)
-						&& automovelController.verificarCamposObrigatorios(novoAutomovel)
-						) {
-
-					// lógica de chamar o controller
-					pessoaController.cadastrarPessoa(novaPessoa);
-					clienteController.cadastrarCliente(novoCliente);
-					automovelController.cadastrarAutomovel(novoAutomovel);
-					JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!", 
-							"Sucess", JOptionPane.DEFAULT_OPTION);
-				}
+//				if(pessoaController.verificarCamposObrigatorios(novaPessoa)
+//						&& clienteController.verificarCamposObrigatorios(novoCliente)
+//						&& automovelController.verificarCamposObrigatorios(novoAutomovel)
+//						) {
+//
+//					// lógica de chamar o controller
+//					pessoaController.cadastrarPessoa(novaPessoa);
+//					clienteController.cadastrarCliente(novoCliente);
+//					automovelController.cadastrarAutomovel(novoAutomovel);
+//					JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!", 
+//							"Sucess", JOptionPane.DEFAULT_OPTION);
+//				} else {
+//					JOptionPane.showMessageDialog(null, "Cliente não cadastrado!", 
+//							"Erro", JOptionPane.ERROR);
+//				}
 			}
 
 
 
 		});
-		btnNewButton.setBounds(539, 378, 89, 23);
-		add(btnNewButton);
+		btnCadastro.setBounds(539, 378, 89, 23);
+		add(btnCadastro);
 
 		JLabel lblCEP = new JLabel("CEP:");
 		lblCEP.setBounds(29, 333, 46, 14);
 		add(lblCEP);
 
 		inputBairro = new JTextField();
-		inputBairro.setBounds(115, 296, 210, 20);
+		inputBairro.setBounds(142, 296, 210, 20);
 		add(inputBairro);
 		inputBairro.setColumns(10);
 

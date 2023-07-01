@@ -1,12 +1,16 @@
+DROP DATABASE IF EXISTS oficina_desktop;
+
 CREATE SCHEMA oficina_desktop;
 CREATE DATABASE oficina_desktop;
+
+USE oficina_desktop;
 
 CREATE TABLE pessoa (
 	idpessoa INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255),
     cpf CHAR(14),
     dt_nascimento DATE,
-    telefone CHAR(14),
+    telefone VARCHAR(200),
     email VARCHAR(255)    
 );
 

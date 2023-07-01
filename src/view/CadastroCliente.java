@@ -54,6 +54,7 @@ public class CadastroCliente extends JPanel {
 	private JTextField inputBairro;
 	private Pessoa novaPessoa;
 	private DatePicker dtNasc;
+	private JLabel lblCEP;
 
 	public CadastroCliente() {
 		setLayout(null);
@@ -231,7 +232,7 @@ public class CadastroCliente extends JPanel {
 				
 				
 				if(mensagemValidacao.isBlank()) {
-					clienteController.cadastrarCliente(novoCliente);
+					clienteController.cadastrarCliente(novoCliente, novoAutomovel);
 					JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!", 
 							"Sucess", JOptionPane.DEFAULT_OPTION);
 				} else {
@@ -247,7 +248,7 @@ public class CadastroCliente extends JPanel {
 		btnCadastro.setBounds(539, 378, 89, 23);
 		add(btnCadastro);
 
-		JLabel lblCEP = new JLabel("CEP:");
+		lblCEP = new JLabel("CEP:");
 		lblCEP.setBounds(29, 351, 46, 14);
 		add(lblCEP);
 

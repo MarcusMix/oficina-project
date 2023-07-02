@@ -52,17 +52,17 @@ public class CadastroCliente extends JPanel {
 	private JComboBox comboBoxEstado;
 	private JButton btnCadastro;
 	private JTextField inputBairro;
-	private Pessoa novaPessoa;
-	private DatePicker dtNasc;
 	private JLabel lblCEP;
+	private DatePicker dtNasc;
+	
+	//classes pca
+	private Pessoa novaPessoa;
+	private Cliente novoCliente;
+	private Automovel novoAutomovel;
 
 	public CadastroCliente() {
 		setLayout(null);
 		setBounds(100, 100, 746, 412);
-//		
-//		if(email.indexOf(“@”) == -1 || s.indexOf(“.”) == -1) {
-//			
-//		}
 		
 		try {
 			inputCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
@@ -101,7 +101,6 @@ public class CadastroCliente extends JPanel {
 
 		dtNasc = new DatePicker();
 		dtNasc.getComponentDateTextField().setLocation(0, 138);
-//		dtNasc.setColumns(10);
 		dtNasc.setBounds(142, 138, 210, 20);
 		add(dtNasc);
 
@@ -194,29 +193,25 @@ public class CadastroCliente extends JPanel {
 
 		btnCadastro = new JButton("Cadastrar");
 		btnCadastro.addActionListener(new ActionListener() {
-			private Cliente novoCliente;
-			private Automovel novoAutomovel;
-
 			public void actionPerformed(ActionEvent e) {
 				//criar cliente com os dados digitados
 				novoCliente = new Cliente();
 				novoCliente.setNome(inputNome.getText().trim());
-				novoCliente.setCpf(inputCpf.getText());
-				novoCliente.setDtNascimento(dtNasc.getDateStringOrEmptyString().toString());
-				System.out.println(dtNasc.getDateStringOrEmptyString());
-				novoCliente.setTelefone(inputTelefone.getText());
-				novoCliente.setEmail(inputEmail.getText());
+				novoCliente.setCpf(inputCpf.getText().trim());
+				novoCliente.setDtNascimento(dtNasc.getDate());
+				novoCliente.setTelefone(inputTelefone.getText().trim());
+				novoCliente.setEmail(inputEmail.getText().trim());
 				novoCliente.setRua(inputRua.getText());
 				novoCliente.setEstado((String) comboBoxEstado.getSelectedItem());
-				novoCliente.setBairro(inputCEP.getText());
-				novoCliente.setCep(inputCEP.getText());
+				novoCliente.setBairro(inputCEP.getText().trim());
+				novoCliente.setCep(inputCEP.getText().trim());
 
 				//criar automovel
 				novoAutomovel = new Automovel();
-				novoAutomovel.setModelo(inputModelo.getText());
-				novoAutomovel.setMarca(inputMarca.getText());
-				novoAutomovel.setAno(inputAno.getText());
-				novoAutomovel.setPlaca(inputPlaca.getText());
+				novoAutomovel.setModelo(inputModelo.getText().trim());
+				novoAutomovel.setMarca(inputMarca.getText().trim());
+				novoAutomovel.setAno(inputAno.getText().trim());
+				novoAutomovel.setPlaca(inputPlaca.getText().trim());
 
 				PessoaController pessoaController = new PessoaController();
 				ClienteController clienteController = new ClienteController();
@@ -235,15 +230,12 @@ public class CadastroCliente extends JPanel {
 					clienteController.cadastrarCliente(novoCliente, novoAutomovel);
 					JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!", 
 							"Sucess", JOptionPane.DEFAULT_OPTION);
+					
+					limparInputs();
 				} else {
 					JOptionPane.showMessageDialog(null, mensagemValidacao, "Atenção", JOptionPane.WARNING_MESSAGE, null);
-				}
-//
-//			
+				}		
 			}
-
-
-
 		});
 		btnCadastro.setBounds(539, 378, 89, 23);
 		add(btnCadastro);
@@ -257,5 +249,19 @@ public class CadastroCliente extends JPanel {
 		add(inputBairro);
 		inputBairro.setColumns(10);
 
+	}
+	
+	private void limparInputs() {
+		inputNome.setText("");
+		inputCpf.setText("");
+		inputTelefone.setText("");
+		inputEmail.setText("");
+		inputRua.setText("");
+		inputBairro.setText("");
+		inputCEP.setText("");
+		inputModelo.setText("");
+		inputMarca.setText("");
+		inputAno.setText("");
+		inputPlaca.setText("");
 	}
 }

@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.LocalDate;
+
 import javax.swing.JOptionPane;
 
 import model.dao.PessoaDAO;
@@ -20,9 +22,6 @@ public class PessoaController {
 		if(novaPessoa.getCpf().isBlank()) {
 			mensagemValidacao += "CPF em branco! \n"; 
 		} 
-		if(novaPessoa.getDtNascimento().isBlank()) {
-			mensagemValidacao += "Data de Nascimento em branco!\n";
-		} 
 		if(novaPessoa.getTelefone().isBlank()) {
 			mensagemValidacao += "Telefone em branco!\n";
 		}
@@ -40,9 +39,6 @@ public class PessoaController {
 		}
 		if(novaPessoa.getTelefone().length() < 11) {
 			mensagemValidacao += "Campo Telefone não pode ter menos que onze caracteres!\n";
-		}
-		if(novaPessoa.getDtNascimento().length() < 10) {
-			mensagemValidacao += "Campo Data de Nascimento não pode ter menos que dez caracteres!\n";
 		}
 		return mensagemValidacao;
 	}

@@ -11,7 +11,7 @@ import model.vo.Cliente;
 public class ClienteDAO {
 
 	public void cadastrarClienteDAO(Cliente novoCliente) {
-		String query = "INSERT INTO cliente (rua, bairro, cep, estado) VALUES (?, ?, ? ,?)";
+		String query = "INSERT INTO cliente (rua, bairro, cep, estado) VALUES (?, ? ,?, ?)";
 		System.out.println(query);
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
@@ -21,11 +21,11 @@ public class ClienteDAO {
 			pstmt.setString(2, novoCliente.getBairro());
 			pstmt.setString(3, novoCliente.getCep());
 			pstmt.setString(4, novoCliente.getEstado());
+//			pstmt.setInt(5, novoCliente.getPessoa().getIdpessoa());
 			
 			pstmt.execute();
 			ResultSet resultado = pstmt.getGeneratedKeys(); 
 			if (resultado.next()) {
-				novoCliente.setIdpessoa(resultado.getInt(1));
 				novoCliente.setIdCliente(resultado.getInt(1));
 			}
 			

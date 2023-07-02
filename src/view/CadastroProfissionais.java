@@ -42,19 +42,20 @@ public class CadastroProfissionais extends JPanel {
 	private JLabel lblBairro;
 	private JLabel lblEstado;
 	private JComboBox comboBoxEstado;
+	private JComboBox cbFuncao;
 	private JButton btnCadastrar;
 	private JTextField inputCep;
+	private JLabel lblCep;
+	private JLabel lblFuncao;
 	private Pessoa novaPessoa;
 	private Profissional novoProfissional;
 	private ProfissionalController profissionalController;
 	private PessoaController pessoaController;
-	private JLabel lblCep;
-	private JLabel lblFuncao;
 
 	public CadastroProfissionais() {
 		setLayout(null);
 		setBounds(100, 100, 746, 412);
-		
+
 		try {
 			inputCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
 			inputTelefone = new JFormattedTextField(new MaskFormatter("(##) #####-####"));
@@ -81,7 +82,7 @@ public class CadastroProfissionais extends JPanel {
 		lblCpf.setBounds(29, 106, 46, 14);
 		add(lblCpf);
 
-		
+
 		inputCpf.setColumns(10);
 		inputCpf.setBounds(147, 103, 210, 20);
 		add(inputCpf);
@@ -144,25 +145,25 @@ public class CadastroProfissionais extends JPanel {
 		comboBoxEstado = new JComboBox(estados);
 		comboBoxEstado.setBounds(494, 102, 210, 22);
 		add(comboBoxEstado);
-		
-		
+
+
 		lblCep = new JLabel("CEP:");
 		lblCep.setBounds(401, 174, 40, 14);
 		add(lblCep);
-		
+
 		inputCep.setColumns(10);
 		inputCep.setBounds(494, 170, 210, 20);
 		add(inputCep);
-		
+
 		lblFuncao = new JLabel("Função:");
 		lblFuncao.setBounds(401, 206, 55, 14);
 		add(lblFuncao);
-		
+
 		String[] funcao = {"Mecânico", "Funileiro", "Eletricista"};
-		JComboBox cbFuncao = new JComboBox(funcao);
+		cbFuncao = new JComboBox(funcao);
 		cbFuncao.setBounds(494, 202, 210, 22);
 		add(cbFuncao);
-		
+
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 
@@ -170,27 +171,42 @@ public class CadastroProfissionais extends JPanel {
 				//criar profissional
 				novoProfissional = new Profissional();
 				novoProfissional.setNome(inputNome.getText().trim());
-				novoProfissional.setCpf(inputCpf.getText());
-				novoProfissional.setDtNascimento(inputDataNasc.getDateStringOrEmptyString().toString());
-				novoProfissional.setTelefone(inputTelefone.getText());
-				novoProfissional.setEmail(inputEmail.getText());
+				novoProfissional.setCpf(inputCpf.getText().trim());
+				novoProfissional.setDtNascimento(inputDataNasc.getDate());
+				novoProfissional.setTelefone(inputTelefone.getText().trim());
+				novoProfissional.setEmail(inputEmail.getText().trim());
 				novoProfissional.setFuncao((String) cbFuncao.getSelectedItem());
 
 				pessoaController = new PessoaController();
 				String mensagemValidacao = pessoaController.verificarCamposObrigatorios(novoProfissional);
-				
+
 				profissionalController = new ProfissionalController();
 				mensagemValidacao += profissionalController.validarDadosProfissional(novoProfissional);
-				
+
 				if(mensagemValidacao.isBlank()) {
 					profissionalController.cadastrarProfissional(novoProfissional);
-				}else {
+					JOptionPane.showMessageDialog(null, "Profissional cadastrado com sucesso!", 
+							"Sucess", JOptionPane.DEFAULT_OPTION);
+					
+					//zerar inputs
+					limparInputs();
+				} else {
 					JOptionPane.showMessageDialog(null, mensagemValidacao, "Atenção", JOptionPane.WARNING_MESSAGE, null);
 				}
 			}
 		});
 		btnCadastrar.setBounds(539, 378, 100, 23);
 		add(btnCadastrar);
-	
 	}
+	
+	private void limparInputs() {
+		inputNome.setText("");
+		inputCpf.setText("");
+		inputDataNasc.setText("");
+		inputTelefone.setText("");
+		inputEmail.setText("");
+		inputBairro.setText("");
+		inputCep.setText("");
+	}
+	
 }

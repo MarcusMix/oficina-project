@@ -12,7 +12,7 @@ public class PessoaDAO {
 
 	public void cadastrarPessoaDAO(Pessoa novoCliente) {
 		String query = "INSERT INTO pessoa (nome, cpf, dt_nascimento, telefone,"
-				+ " email ) VALUES (?, ?, ? ,? ,?)";
+				+ " email) VALUES (?, ?, ? ,? ,?)";
 		System.out.println(query);
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
@@ -20,7 +20,7 @@ public class PessoaDAO {
 		try {
 			pstmt.setString(1, novoCliente.getNome());
 			pstmt.setString(2, novoCliente.getCpf());
-			pstmt.setString(3, novoCliente.getDtNascimento());
+			pstmt.setString(3, novoCliente.getDtNascimento().toString());
 			pstmt.setString(4, novoCliente.getTelefone());
 			pstmt.setString(5, novoCliente.getEmail());
 

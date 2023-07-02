@@ -26,10 +26,13 @@ public class Index extends JFrame {
 	
 	private CadastroCliente cadastroPainel;
 	private CadastroProfissionais cadastroPro;
+	private TelaOrcamento telaOrcamento;
 	private JMenuItem subMenuCliente;
 	private JMenuItem subMenuPro;
 	private JMenu menuCadastro;
 	private JLabel lblTitulo;
+	private JMenuItem mntmNewMenuItem;
+	private JLabel imageBackground;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -81,6 +84,16 @@ public class Index extends JFrame {
 		menuOrcamento = new JMenu("Orçamento");
 		menuBar.add(menuOrcamento);
 		
+		mntmNewMenuItem = new JMenuItem("Novo orçamento");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				telaOrcamento = new TelaOrcamento();
+				setContentPane(telaOrcamento);
+				revalidate();
+			}
+		});
+		menuOrcamento.add(mntmNewMenuItem);
+		
 		menuRelatorios = new JMenu("Relatórios");
 		menuBar.add(menuRelatorios);
 		
@@ -98,9 +111,9 @@ public class Index extends JFrame {
 		lblTitulo.setFont(new Font("Poppins Black", Font.PLAIN, 40));
 		contentPane.add(lblTitulo);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(Index.class.getResource("/icons/golf.jpg")));
-		lblNewLabel.setBounds(-158, -89, 890, 512);
-		contentPane.add(lblNewLabel);
+		imageBackground = new JLabel("Golf");
+		imageBackground.setIcon(new ImageIcon(Index.class.getResource("/icons/golf.jpg")));
+		imageBackground.setBounds(-158, -89, 890, 512);
+		contentPane.add(imageBackground);
 	}
 }

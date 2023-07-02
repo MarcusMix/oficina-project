@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.LocalDate;
+
 import javax.swing.JOptionPane;
 
 import model.dao.AutomovelDAO;
@@ -18,9 +20,6 @@ public class ClienteController {
 		if(novoCliente.getCpf().isBlank()) {
 			mensagemValidacao += "CPF em branco! \n"; 
 		} 
-		if(novoCliente.getDtNascimento().isBlank()) {
-			mensagemValidacao += "Data de Nascimento em branco!\n";
-		} 
 		if(novoCliente.getTelefone().isBlank()) {
 			mensagemValidacao += "Telefone em branco!\n";
 		}
@@ -38,9 +37,6 @@ public class ClienteController {
 		}
 		if(novoCliente.getTelefone().length() < 11) {
 			mensagemValidacao += "Campo Telefone não pode ter menos que onze caracteres!\n";
-		}
-		if(novoCliente.getDtNascimento().length() < 10) {
-			mensagemValidacao += "Campo Data de Nascimento não pode ter menos que dez caracteres!\n";
 		}
 		if(novoCliente.getRua().isBlank()) {
 			mensagemValidacao += "Rua em branco! \n";
@@ -69,11 +65,11 @@ public class ClienteController {
 	}
 
 	public void cadastrarCliente(Cliente novoCliente, Automovel novoAuto) {
-		ClienteDAO clienteDAO = new ClienteDAO();
-		clienteDAO.cadastrarClienteDAO(novoCliente);
-		
 		PessoaDAO pessoaDAO = new PessoaDAO();
 		pessoaDAO.cadastrarPessoaDAO(novoCliente);
+		
+		ClienteDAO clienteDAO = new ClienteDAO();
+		clienteDAO.cadastrarClienteDAO(novoCliente);
 		
 		AutomovelDAO autoDAO = new AutomovelDAO();
 		autoDAO.cadastrarAutomovelDAO(novoAuto);

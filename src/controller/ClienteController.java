@@ -76,6 +76,12 @@ public class ClienteController {
 		
 	}
 
+//	public Cliente consultarPorCpf() {
+//		
+//		
+//		return ;
+//	}
+
 	
 
 	

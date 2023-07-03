@@ -23,16 +23,18 @@ public class Index extends JFrame {
 	private JMenu menuOrcamento;
 	private JMenu menuRelatorios;
 	private JMenu menuSobre;
-	
-	private CadastroCliente cadastroPainel;
-	private CadastroProfissionais cadastroPro;
-	private TelaOrcamento telaOrcamento;
 	private JMenuItem subMenuCliente;
 	private JMenuItem subMenuPro;
 	private JMenu menuCadastro;
 	private JLabel lblTitulo;
 	private JMenuItem mntmNewMenuItem;
 	private JLabel imageBackground;
+	
+	//telas
+	private CadastroCliente cadastroPainel;
+	private CadastroProfissionais cadastroPro;
+	private TelaOrcamento telaOrcamento;
+	private TelaRelatorioCliente telaRelCliente;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -96,6 +98,24 @@ public class Index extends JFrame {
 		
 		menuRelatorios = new JMenu("Relatórios");
 		menuBar.add(menuRelatorios);
+		
+		JMenuItem subMenuClienteRel = new JMenuItem("Cliente");
+		subMenuClienteRel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				telaRelCliente = new TelaRelatorioCliente();
+				setContentPane(telaRelCliente);
+				revalidate();
+			}
+		});
+		menuRelatorios.add(subMenuClienteRel);
+		
+		JMenuItem subMenuOrcamento = new JMenuItem("Orçamento");
+		subMenuOrcamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		menuRelatorios.add(subMenuOrcamento);
 		
 		menuSobre = new JMenu("Sobre");
 		menuBar.add(menuSobre);

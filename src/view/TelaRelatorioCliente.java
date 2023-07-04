@@ -13,6 +13,9 @@ import controller.ClienteController;
 import model.vo.Cliente;
 
 import javax.swing.JTable;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TelaRelatorioCliente extends JPanel {
 	private JTextField inputNome;
@@ -23,7 +26,7 @@ public class TelaRelatorioCliente extends JPanel {
 	private JLabel lblCPF;
 	private JLabel lblCidade;
 	private JTable tblClientes;
-	private String[] nomesColunas = {"Nome", "CPF", "Estado", "Bairro"};
+	private String[] nomesColunas = {"Nome", "CPF", "Estado", "Bairro", "CEP"};
 
 	private List<Cliente> clientes = new ArrayList<>();
 
@@ -68,10 +71,19 @@ public class TelaRelatorioCliente extends JPanel {
 		tblClientes = new JTable();
 		tblClientes.setBounds(58, 206, 627, 195);
 		add(tblClientes);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				atualizarTabela();
+			}
+		});
+		btnBuscar.setBounds(478, 150, 194, 23);
+		add(btnBuscar);
 
 		DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
 
-		atualizarTabela();
+		
 	}
 	//	
 	//	public PainelListagemTelefone() {
@@ -101,22 +113,24 @@ public class TelaRelatorioCliente extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
 
 		ClienteController clienteController = new ClienteController();
+		
+		String cpf = inputCPF.getText();
+		String cidade = inputCidade.getText();
+		String nome = inputNome.getText();
+		
+		List<Cliente> clienteBuscado = null;
+		
+		clienteBuscado = clienteController.consultar(nome, cpf, cidade);
 
-		for (Cliente cliente : this.clientes) {
-			String nomeCliente = "Sem cliente";
-			//			if(cliente.getCpf() != null) {
-			//			Cliente clienteBuscado = clienteController.consultarPorCpf();
-			//				
-			//				if(clienteBuscado != null) {
-			//					nomeCliente = clienteBuscado.getNome();
-			//				}
-			//			}
-			//			
-			Object[] novaLinhaDaTabela = new Object[4];
+		for (Cliente cliente : clienteBuscado) {
+						
+						
+			Object[] novaLinhaDaTabela = new Object[5];
 			novaLinhaDaTabela[0] = cliente.getNome();
 			novaLinhaDaTabela[1] = cliente.getCpf();
 			novaLinhaDaTabela[2] = cliente.getEstado();
 			novaLinhaDaTabela[3] = cliente.getBairro();
+			novaLinhaDaTabela[4] = cliente.getCep();
 			model.addRow(novaLinhaDaTabela);
 		}
 	}

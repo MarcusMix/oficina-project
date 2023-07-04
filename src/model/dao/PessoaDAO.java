@@ -13,7 +13,6 @@ public class PessoaDAO {
 	public void cadastrarPessoaDAO(Pessoa novoCliente) {
 		String query = "INSERT INTO pessoa (nome, cpf, dt_nascimento, telefone,"
 				+ " email) VALUES (?, ?, ? ,? ,?)";
-		System.out.println(query);
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
 
@@ -31,7 +30,7 @@ public class PessoaDAO {
 			}
 
 		} catch (SQLException erro){
-			System.out.println("Erro ao executar a quarto do médoto cadastrarPessoaDAO");
+			System.out.println("Erro ao executar o método cadastrarPessoaDAO");
 			System.out.println("Erro: " + erro.getMessage());
 		} finally {
 			Banco.closePreparedStatement(pstmt);

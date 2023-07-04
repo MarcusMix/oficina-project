@@ -1,6 +1,8 @@
 package controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -9,6 +11,7 @@ import model.dao.ClienteDAO;
 import model.dao.PessoaDAO;
 import model.vo.Automovel;
 import model.vo.Cliente;
+import model.vo.Profissional;
 
 public class ClienteController {
 	
@@ -75,12 +78,17 @@ public class ClienteController {
 		autoDAO.cadastrarAutomovelDAO(novoAuto);
 		
 	}
+	
+	public List<Cliente> consultar(String nome, String cpf, String cidade) {
+		List<Cliente> clienteBuscado = null;
+		ClienteDAO clienteDAO = new ClienteDAO();
+		
+		clienteBuscado = clienteDAO.consultarDAO(nome, cpf, cidade);
+		return clienteBuscado;
+	}
 
-//	public Cliente consultarPorCpf() {
-//		
-//		
-//		return ;
-//	}
+
+	
 
 	
 

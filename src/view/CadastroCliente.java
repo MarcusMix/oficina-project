@@ -203,7 +203,7 @@ public class CadastroCliente extends JPanel {
 				novoCliente.setEmail(inputEmail.getText().trim());
 				novoCliente.setRua(inputRua.getText());
 				novoCliente.setEstado((String) comboBoxEstado.getSelectedItem());
-				novoCliente.setBairro(inputCEP.getText().trim());
+				novoCliente.setBairro(inputBairro.getText().trim());
 				novoCliente.setCep(inputCEP.getText().trim());
 
 				//criar automovel

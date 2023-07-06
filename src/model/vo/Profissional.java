@@ -1,6 +1,6 @@
 package model.vo;
 
-public class Profissional extends Pessoa {
+public class Profissional extends Pessoa{
 	private int idProfissional;
 	private Pessoa pessoa;
 	private String funcao;
@@ -53,7 +53,7 @@ public class Profissional extends Pessoa {
 
 	@Override
 	public String toString() {
-		return this.getNome() + " id: " + this.getIdProfissional() + "Função: " + this.getFuncao() + " Data Admissão: " + this.getDtAdimissao();
+		return pessoa.getNome() + " Função: " + this.getFuncao() + " Data Admissão: " + this.getDtAdimissao();
 	}
 
 }

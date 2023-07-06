@@ -26,7 +26,7 @@ public class PessoaDAO {
 			pstmt.execute();
 			ResultSet resultado = pstmt.getGeneratedKeys(); 
 			if (resultado.next()) {
-				novoCliente.setIdpessoa(resultado.getInt(1));
+				novoCliente.setIdpessoa(resultado.getString(1));
 			}
 
 		} catch (SQLException erro){

@@ -11,14 +11,21 @@ import model.vo.Profissional;
 public class ProfissionalDAO {
 
 	public void cadastrarProfissionalDAO(Profissional novoProfissional) {
-		String query = "INSERT INTO profissional (funcao, dt_admissao) VALUES (?, ?)";
+		String query = "INSERT INTO profissional (idpessoa, funcao, dt_admissao) VALUES (?, ?, ?)";
 		System.out.println(query);
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
-
+		
+		if(novoProfissional.getPessoa().getIdpessoa() == null) {
+			//todo chamar o pessoadao para inserir uma nova pessoa
+			PessoaDAO dao = new PessoaDAO();
+			dao.cadastrarPessoaDAO(novoProfissional.getPessoa());
+		}
 		try {
-			pstmt.setString(1, novoProfissional.getFuncao());
-			pstmt.setString(2, LocalDate.now().toString());
+			//TODO preencher a coluna idPessoa
+			pstmt.setString(1, novoProfissional.getPessoa().getIdpessoa());
+			pstmt.setString(2, novoProfissional.getFuncao());
+			pstmt.setString(3, LocalDate.now().toString());
 
 			pstmt.execute();
 			ResultSet resultado = pstmt.getGeneratedKeys(); 
@@ -27,7 +34,7 @@ public class ProfissionalDAO {
 			}
 
 		} catch (SQLException erro){
-			System.out.println("Erro ao executar a quarto do médoto cadastrarProfissionalDAO");
+			System.out.println("Erro ao executar o método cadastrarProfissionalDAO");
 			System.out.println("Erro: " + erro.getMessage());
 		} finally {
 			Banco.closePreparedStatement(pstmt);

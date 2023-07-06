@@ -3,7 +3,7 @@ package model.vo;
 import java.time.LocalDate;
 
 public class Pessoa {
-	private int idpessoa;
+	private String idpessoa;
     private String nome;
     private String cpf;
     private LocalDate dtNascimento;
@@ -14,11 +14,11 @@ public class Pessoa {
 		super();
 	}
 
-	public int getIdpessoa() {
+	public String getIdpessoa() {
 		return idpessoa;
 	}
 
-	public void setIdpessoa(int idpessoa) {
+	public void setIdpessoa(String idpessoa) {
 		this.idpessoa = idpessoa;
 	}
 

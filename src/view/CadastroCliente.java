@@ -263,5 +263,6 @@ public class CadastroCliente extends JPanel {
 		inputMarca.setText("");
 		inputAno.setText("");
 		inputPlaca.setText("");
+		dtNasc.clear();
 	}
 }

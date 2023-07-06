@@ -207,6 +207,7 @@ public class CadastroProfissionais extends JPanel {
 		inputEmail.setText("");
 		inputBairro.setText("");
 		inputCep.setText("");
+		inputRua.setText("");
 	}
 	
 }

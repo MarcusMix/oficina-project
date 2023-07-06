@@ -141,6 +141,8 @@ public class TelaOrcamento extends JPanel {
 					orcamentoController.cadastrarOrcamento(orcamento);
 					JOptionPane.showMessageDialog(null, "Orcamento criado!", 
 							"Sucess", JOptionPane.DEFAULT_OPTION);	
+					
+					limparCampos();
 				} else {
 					JOptionPane.showMessageDialog(null, mensagemValidacao, "Atenção", JOptionPane.WARNING_MESSAGE, null);
 				}
@@ -161,5 +163,13 @@ public class TelaOrcamento extends JPanel {
 		cbSituacao = new JComboBox(estados);
 		cbSituacao.setBounds(487, 185, 196, 22);
 		add(cbSituacao);
+	}
+	
+	private void limparCampos() {
+		inputCliente.setText("");
+		inputMaoObra.setText("");
+		inputPecas.setText("");
+		inputTempo.setText("");
+		inputValorTotal.setText("");		
 	}
 }

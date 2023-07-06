@@ -82,9 +82,7 @@ public class ClienteController {
 	public List<Cliente> consultar(String nome, String cpf, String cidade) {
 		List<Cliente> clienteBuscado = null;
 		ClienteDAO clienteDAO = new ClienteDAO();
-		
-		clienteBuscado = clienteDAO.consultarDAO(nome, cpf, cidade);
-		return clienteBuscado;
+		return clienteBuscado = clienteDAO.consultarDAO(nome, cpf, cidade);
 	}
 
 

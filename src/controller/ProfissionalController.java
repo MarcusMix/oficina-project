@@ -18,8 +18,8 @@ public class ProfissionalController {
 	}
 
 	public void cadastrarProfissional(Profissional novoProfissional) {
-		PessoaDAO pessoaDAO = new PessoaDAO();
-		pessoaDAO.cadastrarPessoaDAO(novoProfissional);
+//		PessoaDAO pessoaDAO = new PessoaDAO();
+//		pessoaDAO.cadastrarPessoaDAO(novoProfissional);
 		
 		ProfissionalDAO profissionalDAO = new ProfissionalDAO();
 		profissionalDAO.cadastrarProfissionalDAO(novoProfissional);
